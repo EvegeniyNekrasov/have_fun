@@ -1,8 +1,14 @@
 import { useQuery } from "@tanstack/react-query";
-import { getTransportes } from "./api/test";
-import "./App.css";
+import { createFileRoute } from "@tanstack/react-router";
+import { getTransportes } from "../api/test";
 
-function App() {
+import "./index.css";
+
+export const Route = createFileRoute("/")({
+    component: Index,
+});
+
+function Index() {
     const { data, isFetching, isError } = useQuery({
         queryKey: ["nice-key"],
         queryFn: getTransportes,
@@ -11,11 +17,13 @@ function App() {
 
     if (isFetching) return <div>Loading...</div>;
     if (isError) return <div>Primo, eso no va...</div>;
-    console.log(data);
+
     return (
         <div className="container">
             {data?.map((item) => (
-                <div className="card" key={item.id}>
+                <div
+                    className="card"
+                    key={item.id}>
                     <h2>{item.nombreConductor}</h2>
                     <img
                         src={item.avatar}
@@ -28,5 +36,3 @@ function App() {
         </div>
     );
 }
-
-export default App;
