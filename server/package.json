@@ -9,7 +9,6 @@
     "start": "node dist/app.js"
   },
   "dependencies": {
-    "@faker-js/faker": "^9.6.0",
     "@types/express": "^5.0.0",
     "@types/uuid": "^10.0.0",
     "cors": "^2.8.5",
