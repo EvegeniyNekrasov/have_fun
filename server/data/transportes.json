@@ -1,0 +1,18 @@
+[
+  {
+    "nombreConstructor": "Some Name",
+    "avatar": "",
+    "vehiculo": "Opel",
+    "origen": "Madrid",
+    "destino": "A Coruña",
+    "distanciaKm": 500,
+    "tiempoEstimadoHoras": 9.5,
+    "fechaSalida": "01-01-2024",
+    "carga": {
+      "tipo": "cosas",
+      "pesoKg": 23000,
+      "volumenM3": 23.455
+    },
+    "id": "9fadd480-beb6-4181-bff4-a9149a172191"
+  }
+]
