@@ -1,6 +1,6 @@
-import { useQuery } from "@tanstack/react-query";
+import { useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
-import { getTransportes } from "../api/test";
+import Button from "../ui/Button/button";
 
 import "./index.css";
 
@@ -9,30 +9,17 @@ export const Route = createFileRoute("/")({
 });
 
 function Index() {
-    const { data, isFetching, isError } = useQuery({
-        queryKey: ["nice-key"],
-        queryFn: getTransportes,
-        refetchOnWindowFocus: false,
-    });
-
-    if (isFetching) return <div>Loading...</div>;
-    if (isError) return <div>Primo, eso no va...</div>;
-
+    const [isLoading, setIsLoading] = useState(false);
     return (
-        <div className="container">
-            {data?.map((item) => (
-                <div
-                    className="card"
-                    key={item.id}>
-                    <h2>{item.nombreConductor}</h2>
-                    <img
-                        src={item.avatar}
-                        alt="avatar"
-                    />
-                    <span>Origen: {item.origen}</span>
-                    <span>Distino: {item.destino}</span>
-                </div>
-            ))}
+        <div>
+            <Button
+                loading={isLoading}
+                spinnerPlacement="end">
+                This is my button
+            </Button>
+            <Button onClick={() => setIsLoading(!isLoading)}>
+                Toggle loading state
+            </Button>
         </div>
     );
 }
