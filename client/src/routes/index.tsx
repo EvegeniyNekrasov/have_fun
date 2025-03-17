@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
-import Button from "../ui/Button/button";
+import Button from "../ui/button";
 
 import "./index.css";
 
@@ -11,9 +11,11 @@ export const Route = createFileRoute("/")({
 function Index() {
     const [isLoading, setIsLoading] = useState(false);
     return (
-        <div>
+        <div className="w-full">
             <Button
+                size="sm"
                 loading={isLoading}
+                onClick={() => console.log("click")}
                 spinnerPlacement="end">
                 This is my button
             </Button>
