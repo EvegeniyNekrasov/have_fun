@@ -54,11 +54,6 @@ picture {
   display: block;
 }
 
-/* input, button,
-textarea, select {  
-  font-family: inherit;
-  font-size: inherit;
-} */
 
 textarea:not([rows]) {
   min-height: 10em;
