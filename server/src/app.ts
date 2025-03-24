@@ -1,10 +1,11 @@
 import express from "express";
 import routerTransportes from "./routes/trasnsportes.routes";
-
+import routerVehicle from "./routes/vehicle.routes";
 const app = express();
 app.use(express.json());
 
 app.use("/api/transportes", routerTransportes);
+app.use("/api/vehicles", routerVehicle);
 
 const PORT = process.env.PORT || 6969;
 app.listen(PORT, () => {

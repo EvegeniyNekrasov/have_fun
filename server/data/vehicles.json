@@ -1,1 +1,11 @@
-[]
+[
+  {
+    "licencePlate": "bg4421op",
+    "capacity": {
+      "maxWeight": 10223,
+      "maxVolume": 2334
+    },
+    "status": "in transit",
+    "id": "37a53b0c-0df4-4547-8148-47a9f57213e1"
+  }
+]
