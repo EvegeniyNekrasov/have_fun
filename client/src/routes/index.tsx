@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
-import Button from "../ui/button";
-import useGetTransporte from "../hooks/transportes/useGetTransportes";
+import Button from "@/ui/button";
+import useGetTransporte from "@/hooks/transportes/useGetTransportes";
 import "./index.css";
 
 export const Route = createFileRoute("/")({

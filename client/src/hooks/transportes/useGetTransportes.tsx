@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { TrasporteRepository } from "../../repositories/Transporte/TransporteRepository";
+import { TrasporteRepository } from "@repositories/Transporte/TransporteRepository";
 
 const useGetTransporte = () => {
     return useQuery({

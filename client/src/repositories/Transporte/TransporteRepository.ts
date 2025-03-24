@@ -1,5 +1,5 @@
-import { Transporte } from "../../types/transporte";
-import { get } from "../../utils/dataFetch";
+import { Transporte } from "@/types/transporte";
+import { get } from "@/utils/dataFetch";
 
 export class TrasporteRepository {
     public static async getTransportes(): Promise<Transporte[]> {
