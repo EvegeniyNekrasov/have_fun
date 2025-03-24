@@ -1,1 +1,9 @@
-[]
+[
+  {
+    "name": "John Doe",
+    "licence": "B1",
+    "contact": "992992992",
+    "assignedVehicle": "bg4421op",
+    "id": "fee4c3b2-074f-4fc0-8e93-78691615709c"
+  }
+]

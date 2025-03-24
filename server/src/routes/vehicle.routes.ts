@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { VehicleFileRepository } from "../repositories/vehicleFile.repository";
+import { VehicleFileRepository } from "../repositories/vehicle_repository/vehicleFile.repository";
 import { VehicleController } from "../controllers/vehicles.controller";
 
 const routerVehicle = Router();
