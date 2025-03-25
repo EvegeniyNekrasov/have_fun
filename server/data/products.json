@@ -1,1 +1,13 @@
-[]
+[
+  {
+    "name": "Cajas de carton 2 (updated)",
+    "description": "Cajas de carton para envolver lo que sea 2 (updated)",
+    "dimentions": {
+      "weight": 24424,
+      "volume": 231233
+    },
+    "price": 23232,
+    "stock": 23,
+    "id": "c414b25a-1ded-4843-abc5-77c443b77c76"
+  }
+]
