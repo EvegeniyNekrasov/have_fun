@@ -1,11 +1,21 @@
 import { SidebarLinkItems } from "@/types/links";
-import { Home } from "lucide-react";
+import { Home, Truck, SquareUserRound } from "lucide-react";
 
 export const sidebarLinks: SidebarLinkItems[] = [
     {
         path: "/",
         title: "Home",
         icon: Home,
+    },
+    {
+        path: "/vehicles",
+        title: "Vehicles",
+        icon: Truck,
+    },
+    {
+        path: "/drivers",
+        title: "Drivers",
+        icon: SquareUserRound,
     },
     {
         path: "/test",

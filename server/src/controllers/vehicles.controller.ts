@@ -1,6 +1,16 @@
 import { Request, Response } from "express";
 import { VehicleRepository } from "../repositories/vehicle.repository";
 import { HTTP_RESPONSE_CODE } from "../utils/httpCodeReponses";
+import Joi from "joi";
+
+const schema = Joi.object({
+    licencePlate: Joi.string().min(2).max(200).required(),
+    status: Joi.string().required(),
+    capacity: {
+        maxWeight: Joi.number(),
+        maxVolume: Joi.number(),
+    },
+});
 
 export class VehicleController {
     constructor(private readonly vehicleRepo: VehicleRepository) {}
@@ -38,6 +48,16 @@ export class VehicleController {
 
     public create = async (req: Request, res: Response) => {
         try {
+            const isValid = await schema.validate(req.body);
+            if (isValid.error) {
+                return res
+                    .status(HTTP_RESPONSE_CODE.BAD_REQUESt)
+                    .json({
+                        error: "Datos incorrectos",
+                        message: isValid.error,
+                    });
+            }
+            console.log(isValid.error);
             const nuevoVehiculo = req.body;
             const vehiculoCreado = await this.vehicleRepo.create(nuevoVehiculo);
             return res.status(HTTP_RESPONSE_CODE.CREATED).json(vehiculoCreado);

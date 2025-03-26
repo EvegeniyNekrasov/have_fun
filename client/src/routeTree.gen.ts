@@ -15,6 +15,10 @@ import { Route as TestImport } from './routes/test'
 import { Route as SublinkTestImport } from './routes/sublink-test'
 import { Route as OthersublinkTestImport } from './routes/othersublink-test'
 import { Route as IndexImport } from './routes/index'
+import { Route as VehiclesIndexImport } from './routes/vehicles/index'
+import { Route as DriversIndexImport } from './routes/drivers/index'
+import { Route as VehiclesVehicleIdImport } from './routes/vehicles/$vehicleId'
+import { Route as DriversDriversIdImport } from './routes/drivers/$driversId'
 
 // Create/Update Routes
 
@@ -39,6 +43,30 @@ const OthersublinkTestRoute = OthersublinkTestImport.update({
 const IndexRoute = IndexImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const VehiclesIndexRoute = VehiclesIndexImport.update({
+  id: '/vehicles/',
+  path: '/vehicles/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const DriversIndexRoute = DriversIndexImport.update({
+  id: '/drivers/',
+  path: '/drivers/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const VehiclesVehicleIdRoute = VehiclesVehicleIdImport.update({
+  id: '/vehicles/$vehicleId',
+  path: '/vehicles/$vehicleId',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const DriversDriversIdRoute = DriversDriversIdImport.update({
+  id: '/drivers/$driversId',
+  path: '/drivers/$driversId',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -74,6 +102,34 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TestImport
       parentRoute: typeof rootRoute
     }
+    '/drivers/$driversId': {
+      id: '/drivers/$driversId'
+      path: '/drivers/$driversId'
+      fullPath: '/drivers/$driversId'
+      preLoaderRoute: typeof DriversDriversIdImport
+      parentRoute: typeof rootRoute
+    }
+    '/vehicles/$vehicleId': {
+      id: '/vehicles/$vehicleId'
+      path: '/vehicles/$vehicleId'
+      fullPath: '/vehicles/$vehicleId'
+      preLoaderRoute: typeof VehiclesVehicleIdImport
+      parentRoute: typeof rootRoute
+    }
+    '/drivers/': {
+      id: '/drivers/'
+      path: '/drivers'
+      fullPath: '/drivers'
+      preLoaderRoute: typeof DriversIndexImport
+      parentRoute: typeof rootRoute
+    }
+    '/vehicles/': {
+      id: '/vehicles/'
+      path: '/vehicles'
+      fullPath: '/vehicles'
+      preLoaderRoute: typeof VehiclesIndexImport
+      parentRoute: typeof rootRoute
+    }
   }
 }
 
@@ -84,6 +140,10 @@ export interface FileRoutesByFullPath {
   '/othersublink-test': typeof OthersublinkTestRoute
   '/sublink-test': typeof SublinkTestRoute
   '/test': typeof TestRoute
+  '/drivers/$driversId': typeof DriversDriversIdRoute
+  '/vehicles/$vehicleId': typeof VehiclesVehicleIdRoute
+  '/drivers': typeof DriversIndexRoute
+  '/vehicles': typeof VehiclesIndexRoute
 }
 
 export interface FileRoutesByTo {
@@ -91,6 +151,10 @@ export interface FileRoutesByTo {
   '/othersublink-test': typeof OthersublinkTestRoute
   '/sublink-test': typeof SublinkTestRoute
   '/test': typeof TestRoute
+  '/drivers/$driversId': typeof DriversDriversIdRoute
+  '/vehicles/$vehicleId': typeof VehiclesVehicleIdRoute
+  '/drivers': typeof DriversIndexRoute
+  '/vehicles': typeof VehiclesIndexRoute
 }
 
 export interface FileRoutesById {
@@ -99,14 +163,43 @@ export interface FileRoutesById {
   '/othersublink-test': typeof OthersublinkTestRoute
   '/sublink-test': typeof SublinkTestRoute
   '/test': typeof TestRoute
+  '/drivers/$driversId': typeof DriversDriversIdRoute
+  '/vehicles/$vehicleId': typeof VehiclesVehicleIdRoute
+  '/drivers/': typeof DriversIndexRoute
+  '/vehicles/': typeof VehiclesIndexRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/othersublink-test' | '/sublink-test' | '/test'
+  fullPaths:
+    | '/'
+    | '/othersublink-test'
+    | '/sublink-test'
+    | '/test'
+    | '/drivers/$driversId'
+    | '/vehicles/$vehicleId'
+    | '/drivers'
+    | '/vehicles'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/othersublink-test' | '/sublink-test' | '/test'
-  id: '__root__' | '/' | '/othersublink-test' | '/sublink-test' | '/test'
+  to:
+    | '/'
+    | '/othersublink-test'
+    | '/sublink-test'
+    | '/test'
+    | '/drivers/$driversId'
+    | '/vehicles/$vehicleId'
+    | '/drivers'
+    | '/vehicles'
+  id:
+    | '__root__'
+    | '/'
+    | '/othersublink-test'
+    | '/sublink-test'
+    | '/test'
+    | '/drivers/$driversId'
+    | '/vehicles/$vehicleId'
+    | '/drivers/'
+    | '/vehicles/'
   fileRoutesById: FileRoutesById
 }
 
@@ -115,6 +208,10 @@ export interface RootRouteChildren {
   OthersublinkTestRoute: typeof OthersublinkTestRoute
   SublinkTestRoute: typeof SublinkTestRoute
   TestRoute: typeof TestRoute
+  DriversDriversIdRoute: typeof DriversDriversIdRoute
+  VehiclesVehicleIdRoute: typeof VehiclesVehicleIdRoute
+  DriversIndexRoute: typeof DriversIndexRoute
+  VehiclesIndexRoute: typeof VehiclesIndexRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
@@ -122,6 +219,10 @@ const rootRouteChildren: RootRouteChildren = {
   OthersublinkTestRoute: OthersublinkTestRoute,
   SublinkTestRoute: SublinkTestRoute,
   TestRoute: TestRoute,
+  DriversDriversIdRoute: DriversDriversIdRoute,
+  VehiclesVehicleIdRoute: VehiclesVehicleIdRoute,
+  DriversIndexRoute: DriversIndexRoute,
+  VehiclesIndexRoute: VehiclesIndexRoute,
 }
 
 export const routeTree = rootRoute
@@ -137,7 +238,11 @@ export const routeTree = rootRoute
         "/",
         "/othersublink-test",
         "/sublink-test",
-        "/test"
+        "/test",
+        "/drivers/$driversId",
+        "/vehicles/$vehicleId",
+        "/drivers/",
+        "/vehicles/"
       ]
     },
     "/": {
@@ -151,6 +256,18 @@ export const routeTree = rootRoute
     },
     "/test": {
       "filePath": "test.tsx"
+    },
+    "/drivers/$driversId": {
+      "filePath": "drivers/$driversId.tsx"
+    },
+    "/vehicles/$vehicleId": {
+      "filePath": "vehicles/$vehicleId.tsx"
+    },
+    "/drivers/": {
+      "filePath": "drivers/index.tsx"
+    },
+    "/vehicles/": {
+      "filePath": "vehicles/index.tsx"
     }
   }
 }

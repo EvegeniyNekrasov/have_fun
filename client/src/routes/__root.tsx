@@ -8,7 +8,7 @@ export const Route = createRootRoute({
 
 function Index() {
     return (
-        <div className="w-full h-screen grid grid-cols-[250px_1fr] bg-white">
+        <div className="w-full h-screen flex gap-2 bg-white">
             <Sidebar />
             <div className="h-full">
                 <Outlet />

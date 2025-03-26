@@ -7,5 +7,13 @@
     },
     "status": "in transit",
     "id": "37a53b0c-0df4-4547-8148-47a9f57213e1"
+  },
+  {
+    "licensePlate": "alksdj",
+    "capacity": {
+      "maxWeight": 129380,
+      "maxVolume": 23
+    },
+    "id": "ac305fd6-ab01-4ca6-bb57-67526dc52dba"
   }
 ]
