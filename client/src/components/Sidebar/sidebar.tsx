@@ -22,8 +22,24 @@ const Sidebar = () => {
     };
 
     const toggleSidebar = () => {
-        setIsExpanded((prev) => !prev);
+        setIsExpanded((prev) => {
+            const newExpanded = !prev;
+            localStorage.setItem(
+                "sidebar",
+                JSON.stringify({ expanded: newExpanded })
+            );
+            return newExpanded;
+        });
     };
+
+    useEffect(() => {
+        const storageData = localStorage.getItem("sidebar");
+        if (storageData) {
+            const data = JSON.parse(storageData);
+            const { expanded } = data;
+            setIsExpanded(expanded);
+        }
+    }, []);
 
     useEffect(() => {
         window.addEventListener("keydown", (e) =>
