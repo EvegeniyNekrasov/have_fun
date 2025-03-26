@@ -1,5 +1,6 @@
 import { sidebarLinks } from "@/components/Sidebar/sidebarLinks";
 import { SidebarLinkItem, SidebarLinkProps } from "@/types/links";
+import Tooltip from "@/ui/tooltip";
 import { Link, useLocation } from "@tanstack/react-router";
 import { Eraser, Search, ChevronLeft, ChevronRight } from "lucide-react";
 import { Fragment, ReactNode, useEffect, useState } from "react";
@@ -88,15 +89,17 @@ const Sidebar = () => {
             )}
 
             <div className="absolute right-4 top-4  w-[26px] h-[26px] bg-blue-50 flex justify-center items-center z-10 shadow">
-                <button
-                    onClick={toggleSidebar}
-                    className="cursor-pointer">
-                    {isExpanded ? (
-                        <ChevronLeft size={18} />
-                    ) : (
-                        <ChevronRight size={18} />
-                    )}
-                </button>
+                <Tooltip content="Press Ctrl + b to toggle">
+                    <button
+                        onClick={toggleSidebar}
+                        className="cursor-pointer">
+                        {isExpanded ? (
+                            <ChevronLeft size={18} />
+                        ) : (
+                            <ChevronRight size={18} />
+                        )}
+                    </button>
+                </Tooltip>
             </div>
 
             <div className="flex flex-col gap-2 overflow-y-auto">
