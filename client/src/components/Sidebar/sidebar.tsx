@@ -1,50 +1,19 @@
+import { Fragment, useEffect, useState } from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useLocation } from "@tanstack/react-router";
+
+import SearchComponent from "@/components/Search/search-component";
+import { SidebarLink } from "@/components/Sidebar/sidebar-link";
 import { sidebarLinks } from "@/components/Sidebar/sidebarLinks";
-import { SidebarLinkItem, SidebarLinkProps } from "@/types/links";
+
+import { SidebarLinkItem } from "@/types/links";
 import Tooltip from "@/ui/tooltip";
-import { Link, useLocation } from "@tanstack/react-router";
-import { Eraser, Search, ChevronLeft, ChevronRight } from "lucide-react";
-import { Fragment, ReactNode, useEffect, useState } from "react";
+import { SidebarUtil } from "@/utils/sidebar";
 
-const SidebarLink = ({
-    to,
-    icon: Icon,
-    title,
-    isActive,
-    className = "",
-}: SidebarLinkProps): ReactNode => (
-    <Link
-        to={to}
-        className={`flex items-center gap-2 p-2 rounded ${isActive ? "text-blue-600 bg-blue-50" : ""} ${className}`}>
-        {Icon && <Icon className="w-4 h-4" />}
-        {title}
-    </Link>
-);
-
-type SearchComponentProps = {
-    search: string;
-    setSearch: (value: string) => void;
-};
-
-const SearchComponent = ({ search, setSearch }: SearchComponentProps) => (
-    <div className="flex bg-neutral-50 rounded-md items-center gap-1 flex-row p-2 w-full">
-        <Search size={18} />
-        <input
-            type="text"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            placeholder="Search"
-            className="w-full h-full active:border-none focus-within:outline-none"
-        />
-        <button
-            onClick={() => setSearch("")}
-            className="w-[25px] h-[20px] cursor-pointer rounded flex items-center justify-center bg-white">
-            <Eraser size={14} />
-        </button>
-    </div>
-);
 const Sidebar = () => {
     const { pathname } = useLocation();
     const [search, setSearch] = useState("");
+
     const [isExpanded, setIsExpanded] = useState(true);
 
     const isLinkActive = (linkPath: string): boolean => {
@@ -57,17 +26,13 @@ const Sidebar = () => {
     };
 
     useEffect(() => {
-        const handleKeyDown = (event: KeyboardEvent) => {
-            if (
-                (event.ctrlKey || event.metaKey) &&
-                event.key.toLowerCase() === "b"
-            ) {
-                event.preventDefault();
-                toggleSidebar();
-            }
-        };
-        window.addEventListener("keydown", handleKeyDown);
-        return () => window.removeEventListener("keydown", handleKeyDown);
+        window.addEventListener("keydown", (e) =>
+            SidebarUtil.toggleSidebarOnShortcut(e, toggleSidebar)
+        );
+        return () =>
+            window.removeEventListener("keydown", (e) =>
+                SidebarUtil.toggleSidebarOnShortcut(e, toggleSidebar)
+            );
     }, []);
 
     return (
