@@ -1,13 +1,7 @@
+import { SidebarLinkItems } from "@/types/links";
 import { Home } from "lucide-react";
 
-interface Link {
-    path: string;
-    title: string;
-    subpath?: Link[];
-    icon?: React.ComponentType<React.SVGProps<SVGSVGElement>>;
-}
-
-export const sidebarLinks: Link[] = [
+export const sidebarLinks: SidebarLinkItems[] = [
     {
         path: "/",
         title: "Home",
@@ -17,5 +11,9 @@ export const sidebarLinks: Link[] = [
         path: "/test",
         title: "Test",
         icon: Home,
+        sublinks: [
+            { path: "/othersublink-test", title: "Other Sublink", icon: Home },
+            { path: "/sublink-test", title: "Sublink" },
+        ],
     },
 ];

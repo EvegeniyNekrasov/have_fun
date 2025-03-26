@@ -12,6 +12,8 @@
 
 import { Route as rootRoute } from './routes/__root'
 import { Route as TestImport } from './routes/test'
+import { Route as SublinkTestImport } from './routes/sublink-test'
+import { Route as OthersublinkTestImport } from './routes/othersublink-test'
 import { Route as IndexImport } from './routes/index'
 
 // Create/Update Routes
@@ -19,6 +21,18 @@ import { Route as IndexImport } from './routes/index'
 const TestRoute = TestImport.update({
   id: '/test',
   path: '/test',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const SublinkTestRoute = SublinkTestImport.update({
+  id: '/sublink-test',
+  path: '/sublink-test',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const OthersublinkTestRoute = OthersublinkTestImport.update({
+  id: '/othersublink-test',
+  path: '/othersublink-test',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -39,6 +53,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexImport
       parentRoute: typeof rootRoute
     }
+    '/othersublink-test': {
+      id: '/othersublink-test'
+      path: '/othersublink-test'
+      fullPath: '/othersublink-test'
+      preLoaderRoute: typeof OthersublinkTestImport
+      parentRoute: typeof rootRoute
+    }
+    '/sublink-test': {
+      id: '/sublink-test'
+      path: '/sublink-test'
+      fullPath: '/sublink-test'
+      preLoaderRoute: typeof SublinkTestImport
+      parentRoute: typeof rootRoute
+    }
     '/test': {
       id: '/test'
       path: '/test'
@@ -53,36 +81,46 @@ declare module '@tanstack/react-router' {
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/othersublink-test': typeof OthersublinkTestRoute
+  '/sublink-test': typeof SublinkTestRoute
   '/test': typeof TestRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/othersublink-test': typeof OthersublinkTestRoute
+  '/sublink-test': typeof SublinkTestRoute
   '/test': typeof TestRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
+  '/othersublink-test': typeof OthersublinkTestRoute
+  '/sublink-test': typeof SublinkTestRoute
   '/test': typeof TestRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/test'
+  fullPaths: '/' | '/othersublink-test' | '/sublink-test' | '/test'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/test'
-  id: '__root__' | '/' | '/test'
+  to: '/' | '/othersublink-test' | '/sublink-test' | '/test'
+  id: '__root__' | '/' | '/othersublink-test' | '/sublink-test' | '/test'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  OthersublinkTestRoute: typeof OthersublinkTestRoute
+  SublinkTestRoute: typeof SublinkTestRoute
   TestRoute: typeof TestRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  OthersublinkTestRoute: OthersublinkTestRoute,
+  SublinkTestRoute: SublinkTestRoute,
   TestRoute: TestRoute,
 }
 
@@ -97,11 +135,19 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
+        "/othersublink-test",
+        "/sublink-test",
         "/test"
       ]
     },
     "/": {
       "filePath": "index.tsx"
+    },
+    "/othersublink-test": {
+      "filePath": "othersublink-test.tsx"
+    },
+    "/sublink-test": {
+      "filePath": "sublink-test.tsx"
     },
     "/test": {
       "filePath": "test.tsx"
