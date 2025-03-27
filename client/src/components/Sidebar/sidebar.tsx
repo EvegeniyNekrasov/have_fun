@@ -70,7 +70,7 @@ const Sidebar = () => {
                 ${isExpanded ? "w-[250px]" : "w-fit items-center "}`}>
             {isExpanded ? (
                 <span className="text-xs text-neutral-500">
-                    Press Crtl + b to toggle sidebar
+                    Crtl + b to toggle sidebar
                 </span>
             ) : null}
             {isExpanded ? (

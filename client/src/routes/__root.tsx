@@ -8,9 +8,9 @@ export const Route = createRootRoute({
 
 function Index() {
     return (
-        <div className="w-full h-screen flex gap-2 bg-white">
+        <div className="w-full h-screen flex gap-0 bg-white">
             <Sidebar />
-            <div className="h-full">
+            <div className="h-full w-full bg-neutral-100">
                 <Outlet />
                 {/* <TanStackRouterDevtools /> */}
             </div>
