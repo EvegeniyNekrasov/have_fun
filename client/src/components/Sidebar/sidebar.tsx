@@ -1,5 +1,5 @@
 import { Fragment, useEffect, useState } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { Calendar, ChevronLeft, ChevronRight, Clock } from "lucide-react";
 import { useLocation } from "@tanstack/react-router";
 
 import SearchComponent from "@/components/Search/search-component";
@@ -7,14 +7,27 @@ import { SidebarLink } from "@/components/Sidebar/sidebar-link";
 import { sidebarLinks } from "@/components/Sidebar/sidebarLinks";
 
 import { SidebarLinkItem } from "@/types/links";
-import Tooltip from "@/ui/tooltip";
 import { SidebarUtil } from "@/utils/sidebar";
 
 const Sidebar = () => {
     const { pathname } = useLocation();
     const [search, setSearch] = useState("");
-
+    const [time, setTime] = useState(new Date());
     const [isExpanded, setIsExpanded] = useState(true);
+
+    useEffect(() => {
+        const timer = setInterval(() => setTime(new Date()), 1000);
+        return () => clearInterval(timer);
+    }, []);
+
+    const dateFormat = time.toLocaleDateString("en-EN", {
+        weekday: "long",
+        day: "numeric",
+        month: "short",
+        year: "numeric",
+    });
+
+    const hourFormat = time.toLocaleTimeString("en-EN");
 
     const isLinkActive = (linkPath: string): boolean => {
         if (linkPath === "/") return pathname === "/";
@@ -53,14 +66,20 @@ const Sidebar = () => {
 
     return (
         <nav
-            className={`bg-white h-full relative flex flex-col gap-2 p-4 transition-all duration-300 ease-in-out
-                ${isExpanded ? "w-[250px]" : "w-[60px] overflow-hidden"}`}>
-            <div className="flex items-center justify-between">
-                <span
-                    className={`text-xl font-bold transition-opacity ${isExpanded ? "opacity-100" : "opacity-0"}`}>
-                    Logo
+            className={`bg-white h-full border border-r-1 border-neutral-200 relative flex flex-col gap-2 p-4 transition-all duration-300 ease-in-out overflow-hidden
+                ${isExpanded ? "w-[250px]" : "w-fit items-center "}`}>
+            {isExpanded ? (
+                <span className="text-xs text-neutral-500">
+                    Press Crtl + b to toggle sidebar
                 </span>
-            </div>
+            ) : null}
+            {isExpanded ? (
+                <div className="flex items-center justify-between">
+                    <span className={`text-xl font-bold`}>Logo</span>
+                </div>
+            ) : null}
+
+            {!isExpanded ? <div className="w-[30px] h-[30px] "></div> : null}
 
             {isExpanded && (
                 <SearchComponent
@@ -69,18 +88,17 @@ const Sidebar = () => {
                 />
             )}
 
-            <div className="absolute right-4 top-4  w-[26px] h-[26px] bg-blue-50 flex justify-center items-center z-10 shadow">
-                <Tooltip content="Press Ctrl + b to toggle">
-                    <button
-                        onClick={toggleSidebar}
-                        className="cursor-pointer">
-                        {isExpanded ? (
-                            <ChevronLeft size={18} />
-                        ) : (
-                            <ChevronRight size={18} />
-                        )}
-                    </button>
-                </Tooltip>
+            <div
+                className={`absolute ${isExpanded ? "right-4" : "right-5.5"} top-2.5  w-[26px] h-[26px] bg-blue-50 flex justify-center items-center z-50 shadow`}>
+                <button
+                    onClick={toggleSidebar}
+                    className="cursor-pointer">
+                    {isExpanded ? (
+                        <ChevronLeft size={18} />
+                    ) : (
+                        <ChevronRight size={18} />
+                    )}
+                </button>
             </div>
 
             <div className="flex flex-col gap-2 overflow-y-auto">
@@ -93,13 +111,14 @@ const Sidebar = () => {
                             <SidebarLink
                                 to={path}
                                 icon={icon}
-                                title={isExpanded ? title : ""}
+                                title={title}
                                 isActive={isLinkActive(path)}
+                                tooltip={isExpanded}
                                 className={!isExpanded ? "justify-center" : ""}
                             />
 
                             {isExpanded && sublinks && (
-                                <div className="ml-6 flex flex-col gap-2">
+                                <div className="pl-4 flex flex-col gap-2">
                                     {sublinks.map(
                                         (
                                             {
@@ -114,6 +133,7 @@ const Sidebar = () => {
                                                 to={subPath}
                                                 icon={SubIcon}
                                                 title={subTitle}
+                                                tooltip={isExpanded}
                                                 isActive={isLinkActive(subPath)}
                                             />
                                         )
@@ -124,6 +144,18 @@ const Sidebar = () => {
                     )
                 )}
             </div>
+            {isExpanded ? (
+                <div className="mt-auto bg-blue-50 p-2 rounded text-xs flex flex-col gap-1">
+                    <div className="flex items-center gap-2">
+                        <Calendar size={12} />
+                        <span>{dateFormat}</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                        <Clock size={12} />
+                        <span>{hourFormat}</span>
+                    </div>
+                </div>
+            ) : null}
         </nav>
     );
 };

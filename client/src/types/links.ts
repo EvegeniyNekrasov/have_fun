@@ -17,5 +17,6 @@ export interface SidebarLinkProps {
     icon?: React.ComponentType<{ className?: string }>;
     title: string;
     isActive: boolean;
+    tooltip?: boolean;
     className?: string;
 }
