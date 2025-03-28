@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import "./index.css";
 import Container from "@/ui/container";
 import BarChartComponent from "@/components/BarChartComponent";
+import LineChartComponent from "@/components/LineChartComponent";
 
 export const Route = createFileRoute("/")({
     component: Index,
@@ -20,7 +21,7 @@ function Index() {
                 </Container>
                 <Container size="xl">
                     <span className="shrink-0">asldlkdsa</span>
-                    <BarChartComponent />
+                    <LineChartComponent />
                 </Container>
                 <Container size="xl">
                     <span className="shrink-0">asldlkdsa</span>
